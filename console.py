@@ -4,8 +4,6 @@ Class CommandConsole for Airbnb
 """
 import cmd
 from datetime import datetime
-from socket import CAN_BCM_RX_DELETE
-from sys import flags
 from models.base_model import BaseModel
 from models.place import Place
 from models.state import State
@@ -128,6 +126,38 @@ class HBNBCommand(cmd.Cmd):
                     print(obj, end="")
                     flag = 1
             print('"]')
+
+    def do_update(self, line):
+        """Updates an instance based on the class name and id
+        by adding or updating attribute
+        (save the change into the JSON file).
+        - Usage:
+        update <class name> <id> <attribute name> "<attribute value>"
+        - Ex:
+        $ update BaseModel 1234-1234-1234 email "airbnb@holbertonschool.com"
+        - Only one attribute can be updated at the time"""
+        cmd_line = line.split()
+        untochable = ["id", "created_at", "updated_at"]
+        objets = models.storageall()
+        if not line:
+            print("** class name missing **")
+        elif cmd_line[0] not in allowed_class.keys():
+            print("** class doesn't exist **")
+        elif len(cmd_line) == 1:
+            print("**instance is missing **")
+        else:
+            instance = cmd_line[0] + "." + cmd_line[1]
+            if instance not in models.storage.all():
+                print("** no instance found **")
+            elif len(cmd_line) < 3:
+                print("** atributte name missing **")
+            elif len(cmd_line) < 4:
+                print("** value missing")
+            elif cmd_line[2] not in untochable:
+                obj = objets[instance]
+                obj.__dic__[cmd_line[2]] = cmd_line[3]
+                obj.updated_at = datetime.now()
+                obj.save()
 
 
 if __name__ == '__main__':

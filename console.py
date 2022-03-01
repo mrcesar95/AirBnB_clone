@@ -4,6 +4,7 @@ Class CommandConsole for Airbnb
 """
 import cmd
 from datetime import datetime
+from socket import CAN_BCM_RX_DELETE
 from models.base_model import BaseModel
 from models.place import Place
 from models.state import State
@@ -45,7 +46,7 @@ class HBNBCommand(cmd.Cmd):
     # 		flag_instance = 1
     def do_create(self, line):
         """Creates a new instance of BaseModel, saves it (to the JSON file)
-            and prints the id"""
+                and prints the id"""
         if len(line) == 0:
             print("** class name missing **")
             return
@@ -59,8 +60,8 @@ class HBNBCommand(cmd.Cmd):
 
     def do_show(self, line):
         """Prints the string representation of an instance
-            based on the class name and id.
-            Ex: $ show BaseModel 1234-1234-1234."""
+                based on the class name and id.
+                Ex: $ show BaseModel 1234-1234-1234."""
         cmd_line = line.split()
         if len(cmd_line) == 0:
             print("** class name missing **")
@@ -75,8 +76,26 @@ class HBNBCommand(cmd.Cmd):
                 print(models.storage.all()[instance])
             else:
                 print("** no instance found **")
-	
-	
+
+    def do_destroy(self, line):
+        """Deletes an instance based on the class name and
+                id (save the change into the JSON file).
+                Ex: $ destroy BaseModel 1234-1234-1234"""
+        cmd_line = line.split()
+        if len(cmd_line) == 0:
+            print("** class name missing **")
+            return
+        elif cmd_line[0] not in allowed_class.key():
+            print("** class doesn't exist **")
+        elif len(cmd_line) == 1:
+            print("** instance id missing **")
+        elif len(cmd_line) == 2:
+            instance = cmd_line[0] + "." + cmd_line[1]
+            if instance in models.storage.all():
+                del models.storage.all()[instance]
+            models.storage.save()
+        else:
+            print("** no instance found **")
 
 
 if __name__ == '__main__':

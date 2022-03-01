@@ -5,6 +5,7 @@ Class CommandConsole for Airbnb
 import cmd
 from datetime import datetime
 from socket import CAN_BCM_RX_DELETE
+from sys import flags
 from models.base_model import BaseModel
 from models.place import Place
 from models.state import State
@@ -96,6 +97,37 @@ class HBNBCommand(cmd.Cmd):
             models.storage.save()
         else:
             print("** no instance found **")
+
+    def do_all(self, line):
+        """Print all string representation of all instances
+           based or not on the class name.
+           Ex: $ all BaseModel or $ all."""
+        cmd_line = line.split()
+        if len(cmd_line) == 0 or cmd_line[0] == "BaseModel":
+            print('["', end="")
+            flag = 0
+            for obj_id in models.storage.all().keys():
+                if flag == 1:
+                    print('", "', end="")
+                obj = models.storage.all()[obj_id]
+                print(obj, end="")
+                flag = 1
+            print('"]')
+        elif cmd_line[0] not in allowed_class.keys():
+            print("** class doesn't exist **")
+        else:
+            print('"[ ', end="")
+            # result = []
+            flag = 0
+            len_class = len(cmd_line[0])
+            for obj_id in models.storage.all().keys():
+                if obj_id[:len_class] == cmd_line[0]:
+                    if flag == 1:
+                        print('", "', end="")
+                    obj = models.storage.all()[obj_id]
+                    print(obj, end="")
+                    flag = 1
+            print('"]')
 
 
 if __name__ == '__main__':

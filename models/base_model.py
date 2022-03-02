@@ -14,7 +14,7 @@ class BaseModel():
         self.updated_at = datetime.now()
         
     def __str__(self):
-        """ Represntation string of class BaseModel"""
+        """ Representation string of class BaseModel"""
         __name = type(self).__name__
         return "[{}] ({}) {}".format(__name, self.id, self.__dict__)
 

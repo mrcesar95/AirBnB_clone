@@ -4,6 +4,7 @@ Class CommandConsole for Airbnb
 """
 import cmd
 from datetime import datetime
+from enum import Flag
 from models.base_model import BaseModel
 from models.place import Place
 from models.state import State
@@ -36,13 +37,47 @@ class HBNBCommand(cmd.Cmd):
         """overridden to not do nothing"""
     pass
 
-    # def precmd(self, line):
-    # 	"""Edit given command to allow second type of input"""
-    # 	split_line = line.split("(")
-    # 	flag_instance = 0
-    # 	if(len(split_line) > 1):
-    # 		tmp = split_line[0].split(".", 1)
-    # 		flag_instance = 1
+    def precmd(self, line):
+        """Edit given command to allow second type of input"""
+        split_line = line.split("(")
+        flag_instance = 0
+        if(len(split_line) > 1):
+            tmp = split_line[0].split(".", 1)
+            flag_instance = 1
+        if (flag_instance == 1):
+            cmd1 = tmp[0]
+            cmd2 = tmp[1]
+            tmp3 = split_line[1].split(")")
+            cmd3 = tmp3[0].split(",", 1)
+            if (len(cmd3[0]) == 0):
+                line = cmd2 + " " + cmd1
+            else:
+                cmd_id = cmd3[0].replace('"', '')
+                line = cmd2 + " " + cmd1 + " " + cmd_id
+                if (len(cmd) == 1):
+                    line = line
+                else:
+                    dicty = cmd3[1].replace('{', ' ').			replace(':', ' ') \
+                        .replace(',', ' ').replace('}', ' ') \
+                        .replace("'", ' ').replace('"', ' ')
+                    dicty = dicty.split()
+
+                    flag = 0
+                    for n in dicty:
+                        init = cmd1 + " " + cmd_id
+                        if flag == 0:
+                            line = init + ' ' + n
+                            flag = 1
+                        elif flag == 1:
+                            line = line + ' ' + '"' + n + '"'
+                            flag = 0
+                            self.do_update(line)
+                    line = ""
+        else:
+            line = line
+        # print(line)
+        return cmd.Cmd.precmd(self, line)
+
     def do_create(self, line):
         """Creates a new instance of BaseModel, saves it (to the JSON file)
                 and prints the id"""
@@ -138,7 +173,7 @@ class HBNBCommand(cmd.Cmd):
         - Only one attribute can be updated at the time"""
         cmd_line = line.split()
         untochable = ["id", "created_at", "updated_at"]
-        objets = models.storageall()
+        objets = models.storage.all()
         if not line:
             print("** class name missing **")
         elif cmd_line[0] not in allowed_class.keys():

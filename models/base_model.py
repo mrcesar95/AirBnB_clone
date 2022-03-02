@@ -19,6 +19,9 @@ class BaseModel():
             self.id = str(uuid4())
             self.updated_at = datetime.now()
             self.created_at = datetime.now()
+            models.storage.new(self)
+            models.storage.save() 
+
         if args is not None:
             pass
     

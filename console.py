@@ -4,7 +4,6 @@ Class CommandConsole for Airbnb
 """
 import cmd
 from datetime import datetime
-from enum import Flag
 from models.base_model import BaseModel
 from models.place import Place
 from models.state import State
@@ -42,11 +41,11 @@ class HBNBCommand(cmd.Cmd):
         split_line = line.split("(")
         flag_instance = 0
         if(len(split_line) > 1):
-            tmp = split_line[0].split(".", 1)
+            temporal = split_line[0].split(".", 1)
             flag_instance = 1
         if (flag_instance == 1):
-            cmd1 = tmp[0]
-            cmd2 = tmp[1]
+            cmd1 = temporal[0]
+            cmd2 = temporal[1]
             tmp3 = split_line[1].split(")")
             cmd3 = tmp3[0].split(",", 1)
             if (len(cmd3[0]) == 0):
@@ -57,19 +56,19 @@ class HBNBCommand(cmd.Cmd):
                 if (len(cmd) == 1):
                     line = line
                 else:
-                    dicty = cmd3[1].replace('{', ' ').			replace(':', ' ') \
+                    dictionary = cmd3[1].replace('{', ' ').replace(':', ' ') \
                         .replace(',', ' ').replace('}', ' ') \
                         .replace("'", ' ').replace('"', ' ')
-                    dicty = dicty.split()
+                    dictionary = dictionary.split()
 
                     flag = 0
-                    for n in dicty:
+                    for i in dictionary:
                         init = cmd1 + " " + cmd_id
                         if flag == 0:
-                            line = init + ' ' + n
+                            line = init + ' ' + i
                             flag = 1
                         elif flag == 1:
-                            line = line + ' ' + '"' + n + '"'
+                            line = line + ' ' + '"' + i + '"'
                             flag = 0
                             self.do_update(line)
                     line = ""
@@ -190,7 +189,7 @@ class HBNBCommand(cmd.Cmd):
                 print("** value missing")
             elif cmd_line[2] not in untochable:
                 obj = objets[instance]
-                obj.__dic__[cmd_line[2]] = cmd_line[3]
+                obj.__dict__[cmd_line[2]] = cmd_line[3]
                 obj.updated_at = datetime.now()
                 obj.save()
 

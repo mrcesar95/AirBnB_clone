@@ -13,8 +13,8 @@ class BaseModel():
             del kwargs['__class__']
             for key, value in kwargs.items():
                 setattr(self, key, value)
-                self.updated_at = datetime.strptime(self.updated_at, '%Y-%m-%dT%H:%M:%S.%f')
-                self.created_at = datetime.strptime(self.created_at, '%Y-%m-%dT%H:%M:%S.%f')
+            self.updated_at = datetime.strptime(self.updated_at, '%Y-%m-%dT%H:%M:%S.%f')
+            self.created_at = datetime.strptime(self.created_at, '%Y-%m-%dT%H:%M:%S.%f')
         else:
             self.id = str(uuid4())
             self.updated_at = datetime.now()

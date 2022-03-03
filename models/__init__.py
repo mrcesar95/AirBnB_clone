@@ -20,5 +20,6 @@ allclasses = {"BaseModel": BaseModel,
               "Amenity": Amenity,
               "Review": Review}
 
-storage = file_storage.FileStorage()
+
+storage = FileStorage()
 storage.reload()

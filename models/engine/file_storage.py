@@ -50,8 +50,8 @@ class FileStorage:
         #  no exception should be raised
         try:
             with open(self.__file_path, 'r', encoding='UTF-8') as file:
-                jsn = json.load(file)
-            for key in jsn:
-                self.__objects[key] = classes[jsn[key]["__class__"]](**jsn[key])
+                jn = json.load(file)
+            for key in jn:
+                self.__objects[key] = classes[jn[key]["__class__"]](**jn[key])
         except FileNotFoundError:
             pass

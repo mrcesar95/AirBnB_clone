@@ -10,7 +10,7 @@ class BaseModel():
     attributes y methods"""
     def __init__(self, *args, **kwargs):
         """ Initialization of class BaseModel"""
-        if kwargs and len(kwargs) is not 0:
+        if kwargs and len(kwargs) != 0:
             del kwargs['__class__']
             for key, value in kwargs.items():
                 setattr(self, key, value)

@@ -3,6 +3,7 @@
 
 from uuid import uuid4
 from datetime import datetime
+import models
 
 class BaseModel():
     """ Class BaseModel that defines all common
@@ -33,6 +34,7 @@ class BaseModel():
     def save(self):
         """ Save the object into .json file"""
         self.updated_at = datetime.now()
+        models.storage.save()
         
     def to_dict(self):
         """ return an dictionary representation of object"""

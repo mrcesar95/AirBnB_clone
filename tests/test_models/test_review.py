@@ -53,10 +53,10 @@ class TestBaseModel(unittest.TestCase):
         """Testing that object is correctly created"""
         instance = Review()
         self.assertIs(type(instance), Review)
-        instance.name = "Holbies foravaaaa"
+        instance.name = "Holberton School"
         instance.state_id = "111-222"
         instance.user_id = "123-123"
-        instance.text = "some texting here"
+        instance.text = "some other text here"
 
         expectec_attrs_types = {
             "id": str,
@@ -70,10 +70,10 @@ class TestBaseModel(unittest.TestCase):
             with self.subTest(attr=attr, typ=types):
                 self.assertIn(attr, instance.__dict__)
                 self.assertIs(type(instance.__dict__[attr]), types)
-        self.assertEqual(instance.name, "Holbies foravaaaa")
+        self.assertEqual(instance.name, "Holberton School")
         self.assertEqual(instance.state_id, "111-222")
         self.assertEqual(instance.user_id, "123-123")
-        self.assertEqual(instance.text, "some texting here")
+        self.assertEqual(instance.text, "some other text here")
 
     def test_datetime(self):
         """testing correct datetime assignation
@@ -107,10 +107,10 @@ class TestBaseModel(unittest.TestCase):
         """Testing that object is correctly created"""
         instance3 = Review()
         self.assertIs(type(instance3), Review)
-        instance3.name = "Holbies foravaaaa"
+        instance3.name = "Holberton School"
         instance3.place_id = "222"
-        instance3.user_id = "555"
-        instance3.text = "some texting here"
+        instance3.user_id = "666"
+        instance3.text = "some other text here"
         new_inst = instance3.to_dict()
         expectec_attrs = ["id",
                           "created_at",
@@ -122,10 +122,10 @@ class TestBaseModel(unittest.TestCase):
                           "__class__"]
         self.assertCountEqual(new_inst.keys(), expectec_attrs)
         self.assertEqual(new_inst['__class__'], 'Review')
-        self.assertEqual(new_inst['name'], 'Holbies foravaaaa')
+        self.assertEqual(new_inst['name'], 'Holberton School')
         self.assertEqual(new_inst['place_id'], '222')
-        self.assertEqual(new_inst['user_id'], '555')
-        self.assertEqual(new_inst['text'], 'some texting here')
+        self.assertEqual(new_inst['user_id'], '666')
+        self.assertEqual(new_inst['text'], 'some other text here')
 
     def test_str_method(self):
         """testing str method, checking output"""

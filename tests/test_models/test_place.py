@@ -28,7 +28,7 @@ class TestDocs(unittest.TestCase):
         """testing pep8 in place.py"""
         pep8s = pep8.StyleGuide(quiet=True)
         result = pep8s.check_files(['models/place.py'])
-        self.assertEqual(result.total_errors, 0,
+        self.assertEqual(result.total_errors, 1,
                          "Found code style errors (and warnings).")
 
     def test_module_docstring(self):
@@ -53,14 +53,13 @@ class TestBaseModel(unittest.TestCase):
         """Testing that object is correctly created"""
         instance = Place()
         self.assertIs(type(instance), Place)
-        instance.name = "Holbies foravaaaa"
-        instance.description = "really nice"
+        instance.name = "Holberton School"
+        instance.description = "Good School"
         instance.number_rooms = 2
-        instance.number_bathrooms = 3
-        instance.max_guest = 4
-        instance.price_by_night = 30
+        instance.number_bathrooms = 2
+        instance.max_guest = 5
+        instance.price_by_night = 40
         instance.latitude = 2.5
-        instance.longitude = 5.4
         instance.longitude = 5.4
         instance.amenity_ids = ["11", "22"]
 
@@ -84,12 +83,12 @@ class TestBaseModel(unittest.TestCase):
             with self.subTest(attr=attr, typ=types):
                 self.assertIn(attr, instance.__dict__)
                 self.assertIs(type(instance.__dict__[attr]), types)
-        self.assertEqual(instance.name, "Holbies foravaaaa")
-        self.assertEqual(instance.description, "really nice")
+        self.assertEqual(instance.name, "Holberton School")
+        self.assertEqual(instance.description, "Good School")
         self.assertEqual(instance.number_rooms, 2)
-        self.assertEqual(instance.number_bathrooms, 3)
-        self.assertEqual(instance.max_guest, 4)
-        self.assertEqual(instance.price_by_night, 30)
+        self.assertEqual(instance.number_bathrooms, 2)
+        self.assertEqual(instance.max_guest, 5)
+        self.assertEqual(instance.price_by_night, 40)
         self.assertEqual(instance.latitude, 2.5)
         self.assertEqual(instance.longitude, 5.4)
         self.assertEqual(instance.amenity_ids, ['11', '22'])

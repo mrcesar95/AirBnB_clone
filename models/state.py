@@ -1,10 +1,8 @@
 #!/usr/bin/python3
-
+"""Class State"""
 from models.base_model import BaseModel
 
 
 class State(BaseModel):
-
-    name= ""
-    def __init__(self, *args, **kwargs):
-        super().__init__( *args, **kwargs)
+    """Represents a state"""
+    name = ''

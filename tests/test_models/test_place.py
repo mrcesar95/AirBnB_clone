@@ -28,7 +28,7 @@ class TestDocs(unittest.TestCase):
         """testing pep8 in place.py"""
         pep8s = pep8.StyleGuide(quiet=True)
         result = pep8s.check_files(['models/place.py'])
-        self.assertEqual(result.total_errors, 1,
+        self.assertEqual(result.total_errors, 0,
                          "Found code style errors (and warnings).")
 
     def test_module_docstring(self):

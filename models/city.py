@@ -1,9 +1,9 @@
 #!/usr/bin/python3
+"""Class City"""
 from models.base_model import BaseModel
 
-class City(BaseModel):
 
-    state_id = ""
-    name = ""
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+class City(BaseModel):
+    """Represents a City"""
+    state_id = ''
+    name = ''

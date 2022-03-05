@@ -1,48 +1,52 @@
 #!/usr/bin/python3
-""" Creation of class base_model"""
+"""
+Class BaseModel
+"""
 
-from uuid import uuid4
 from datetime import datetime
+import uuid
 import models
+# dtm = date format
+dtm = "%Y-%m-%dT%H:%M:%S.%f"
 
 
-class BaseModel():
-    """ Class BaseModel that defines all common
-    attributes y methods"""
+class BaseModel:
+    """Base Model"""
+
     def __init__(self, *args, **kwargs):
-        """ Initialization of class BaseModel"""
-        if kwargs and len(kwargs) != 0:
-            del kwargs['__class__']
-            for key, value in kwargs.items():
-                setattr(self, key, value)
-            self.updated_at = datetime.strptime(
-                self.updated_at, '%Y-%m-%dT%H:%M:%S.%f')
-            self.created_at = datetime.strptime(
-                self.created_at, '%Y-%m-%dT%H:%M:%S.%f')
-        else:
-            self.id = str(uuid4())
-            self.updated_at = datetime.now()
-            self.created_at = datetime.now()
-            models.storage.new(self)
-            models.storage.save()
+        """Initialize a BaseModel"""
+        if kwargs:
+            for key, val in kwargs.items():
+                if key != '__class__':
+                    setattr(self, key, val)
+            if hasattr(self, 'created_at') and type(self.created_at) is str:
+                self.created_at = datetime.strptime(kwargs["created_at"], dtm)
+            if hasattr(self, 'updated_at') and type(self.updated_at) is str:
+                self.updated_at = datetime.strptime(
+                    kwargs["updated_at"], dtm)
 
-        if args is not None:
-            pass
+        else:
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = self.created_at
+            models.storage.new(self)
 
     def __str__(self):
-        """ Representation string of class BaseModel"""
-        __name = type(self).__name__
-        return "[{}] ({}) {}".format(__name, self.id, self.__dict__)
+        """str representation"""
+        return "[{:s}] ({:s}) {}".format(self.__class__.__name__, self.id,
+                                         self.__dict__)
 
     def save(self):
-        """ Save the object into .json file"""
+        """updates the public ins attr upd_at with the curren one"""
         self.updated_at = datetime.now()
         models.storage.save()
 
     def to_dict(self):
-        """ return an dictionary representation of object"""
-        dictionary = dict(self.__dict__)
-        dictionary["__class__"] = self.__class__.__name__
-        dictionary.update({'created_at': self.created_at.isoformat(),
-                           'updated_at': self.updated_at.isoformat()})
-        return dictionary
+        """ returns a dic containing keys and values of the instance"""
+        n_dict = self.__dict__.copy()
+        if "created_at" in n_dict:
+            n_dict["created_at"] = n_dict["created_at"].strftime(dtm)
+        if "updated_at" in n_dict:
+            n_dict["updated_at"] = n_dict["updated_at"].strftime(dtm)
+        n_dict["__class__"] = self.__class__.__name__
+        return n_dict

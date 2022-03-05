@@ -1,6 +1,4 @@
 #!/usr/bin/python3
-
-from models.engine.file_storage import FileStorage
 """
 do something
 """
@@ -21,5 +19,5 @@ allclasses = {"BaseModel": BaseModel,
               "Amenity": Amenity,
               "Review": Review}
 
-storage = FileStorage()
+storage = file_storage.FileStorage()
 storage.reload()

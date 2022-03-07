@@ -96,7 +96,7 @@ All tests should also pass in non-interactive mode: ``` $ echo "python3 -m unitt
 
 ## Airbnb files structure
 
-##|File|Description
+#|File|Description
 ---|---|---
 0|[console.py](./console.py)|command interpreter to manage your AirBnB objects: Create a new object (ex: a new User or a new Place) ; Retrieve an; object from a file, a database etc… ; Do operations on objects (count, compute stats, etc…); Update attributes of an object; Destroy an object
 1|[models](./models)|directory of all the classes
@@ -124,7 +124,7 @@ Quit command to exit the program
 guillaume@ubuntu:~/AirBnB$ 
 ```
 
-##|Commands|how to use it in the command interpreter|Instance form|Description
+#|Commands|how to use it in the command interpreter|Instance form|Description
 ---|---|---|---|---
 0.0|quit|```quit```||Exit the program
 0.1|EOF|```EOF```||Exit the program
@@ -136,7 +136,7 @@ guillaume@ubuntu:~/AirBnB$
 0.7|update|```update <class name> <id number> <attribute to update> "<new value of attribute>"```|simple form:```<class name>.update(<id>, <attribute name>, <attribute value>)``` update more than 1 attribute(using dictionaries): ```<class name>.update(<id>, <dictionary representation>)```|Updates an instance based on the class name and id by adding or updating attribute (save the change into the JSON file). If there are more commands, the command interpreter will only count the first attribute with its value
 0.8|count|```count <class name>```|```<class name>.count()```|retrieve the number of instances of a class
 
-##|Allowed classes
+#|Allowed classes
 ---|---
 a|BaseModel|```BaseModel```
 b|User|```User```
@@ -281,7 +281,7 @@ More than one command:
 
 ## 1.Models file Structure
 
-##|File|Description|Recommendations
+#|File|Description|Recommendations
 ---|---|---|---
 1.0|[engine](./models/engine)|directory of Store first object|The first way you will see here is to save these objects to a file with dictionaries: ```<class 'BaseModel'> -> to_dict() -> <class 'dict'> -> <class 'BaseModel'>```
 1.1|[__init__.py](./models/engine/__init__.py)|initialization code for the package|files are required to make Python treat the directories as containing packages; this is done to prevent directories with a common name
@@ -303,7 +303,7 @@ The flow of serialization-deserialization is:
 <class 'BaseModel'> -> to_dict() -> <class 'dict'> -> JSON dump -> <class 'str'> -> FILE -> <class 'str'> -> JSON load -> <class 'dict'> -> <class 'BaseModel'>
 ```
 
-##|File|Description|Recommendations
+#|File|Description|Recommendations
 ---|---|---|---
 1.0.0|[__init__.py](./models/engine/__init__.py)|initialization code for the package|files are required to make Python treat the directories as containing packages; this is done to prevent directories with a common name
 1.0.1|[file_storage.py](./models/engine/file_storage.py)||
@@ -368,4 +368,4 @@ guillaume@ubuntu:~/AirBnB$
 
 Elizabeth González Payares  - <img alt="GitHub" width="26px" src="https://raw.githubusercontent.com/github/explore/78df643247d429f6cc873026c0622819ad797942/topics/github/github.png" /> [Github](https://github.com/Artemisse99) - [Twiter](https://twitter.com/Elizabe57763803)
 
-Cesar Enrique Molina Salas  - <img alt="GitHub" width="26px" src="https://raw.githubusercontent.com/github/explore/78df643247d429f6cc873026c0622819ad797942/topics/github/github.png" /> [Github](https://github.com/mrcesar95) - [Twiter]("https://twitter.com/CesarMo74998216")
+Cesar Enrique Molina Salas  - <img alt="GitHub" width="26px" src="https://raw.githubusercontent.com/github/explore/78df643247d429f6cc873026c0622819ad797942/topics/github/github.png" /> [Github](https://github.com/mrcesar95) - [Twiter](https://twitter.com/CesarMo74998216)
